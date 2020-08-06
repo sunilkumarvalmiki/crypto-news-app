@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block content %}
+        {% if notfound %}
+        <img class="form-entry" src="{% static '../static/images/form.jpg' %}" alt="not_found_logo"><br>
+        <p class="form-entry-text">enter a crypto currency symbol in the above search . . .</p>
+        {% else %}
+            {% if crypto.Response %}
+            <img class="form-entry" src="{% static '../static/images/doesnot_exist.jpg' %}" alt="doesnot_exist_logo"><br>
+                <p class="form-entry-text">Sorry The Data : "{{ search }}" is not valid, Please try again . . .</p>
+            {% endif %}
+            {% for key,value in crypto.DISPLAY.items %}
+            <br>
+            <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Day High</th>
+            <th scope="col">Day Low</th>
+            <th scope="col">MarketCap</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>{{ key }}</td>
+            <td>{{ value.USD.PRICE }}</td>
+            <td>{{ value.USD.HIGHDAY }}</td>
+            <td>{{ value.USD.LOWDAY }}</td>
+            <td>{{ value.USD.MKTCAP }}</td>
+        </tr>
+    </tbody>
+</table>
+            {% endfor %}
+        {% endif %}
+    {% endblock %} 
